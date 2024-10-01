@@ -1,3 +1,9 @@
+#!/usr/bin/python3
+"""
+pascal_triangle generator
+"""
+
+
 def pascal_triangle(n):
     if not isinstance(n, int):
         raise TypeError("n must be an integer")
