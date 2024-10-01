@@ -5,6 +5,9 @@ pascal_triangle generator
 
 
 def pascal_triangle(n):
+    """
+    generates a pascal triangle of size n
+    """
     if not isinstance(n, int):
         raise TypeError("n must be an integer")
     if n <= 0:
