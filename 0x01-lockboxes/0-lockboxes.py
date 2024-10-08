@@ -6,7 +6,7 @@ def canUnlockAll(boxes):
     """solution for lockboxes"""
     keys = []
     visited = set()
-    count = len(boxes)
+    count = len(boxes) - 1
     if len(boxes) <= 1:
         return True
     if len(boxes[0]) == 0:
