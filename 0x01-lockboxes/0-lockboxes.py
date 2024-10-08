@@ -7,9 +7,13 @@ def canUnlockAll(boxes):
     keys = []
     visited = set()
     count = len(boxes) - 1
+    if isinstance(boxes,list):
+        return False
     if len(boxes) <= 1:
         return True
     if len(boxes[0]) == 0:
+        return False
+    if isinstance(boxes[0], list):
         return False
     for key in boxes[0]:
         keys.append(key)
