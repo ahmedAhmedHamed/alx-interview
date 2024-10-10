@@ -7,6 +7,7 @@ def canUnlockAll(boxes):
     keys = []
     visited = set()
     count = len(boxes) - 1
+    visited.add(0)
     if len(boxes) <= 1:
         return True
     if len(boxes[0]) == 0:
