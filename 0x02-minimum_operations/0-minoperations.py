@@ -93,11 +93,6 @@ def is_prime(n: int) -> bool:
 
 
 def get_max_prime_factor(n: int) -> int:
-    # if not isinstance(n, int):
-    #     return 0
-    n = int(n)
-    if n <= 0:
-        return 0
     max_prime_factor = -1
     while not is_prime(n):
         if n % 2 == 0:
@@ -121,6 +116,10 @@ def minOperations(n: int) -> int:
         needed to result in exactly n H characters in the file.
 
     """
+    if not isinstance(n, int):
+        return 0
+    if n <= 0:
+        return 0
     if n == 1:
         return 0
     if is_prime(n):
