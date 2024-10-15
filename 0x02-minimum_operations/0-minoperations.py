@@ -118,4 +118,4 @@ def minOperations(n: int) -> int:
     max_prime_factor = get_max_prime_factor(n)
     ret += max_prime_factor - 1
     ret += int(n / max_prime_factor) - 1
-    return ret
+    return int(ret)
