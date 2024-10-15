@@ -54,7 +54,7 @@ and continue until the number becomes a prime number.
 ---
 ===
 core algo:
-starting number of operations is always 2
+starting number of operations is always 2 assuming the number isn't prime or 1
 (one for initial copy, second for second copy)
 1. get max prime factor of n named P.
 2. add P - 1 to the amount of operations.
@@ -85,6 +85,10 @@ def is_prime(n: int) -> bool:
     return True
 
 
+def get_max_prime_factor(n: int) -> int:
+    pass
+
+
 def minOperations(n: int) -> int:
     """
     In a text file, there is a single character H.
@@ -94,8 +98,12 @@ def minOperations(n: int) -> int:
         needed to result in exactly n H characters in the file.
 
     """
-    return 0
-
-
-print(is_prime(7))
-print(is_prime(10))
+    if n == 1:
+        return 0
+    if is_prime(n):
+        return n
+    ret = 2  # will always need to copy at least twice.
+    max_prime_factor = get_max_prime_factor(n)
+    ret += max_prime_factor - 1
+    ret += int(n / max_prime_factor) - 1
+    return ret
