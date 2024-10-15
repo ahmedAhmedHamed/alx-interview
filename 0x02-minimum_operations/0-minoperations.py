@@ -75,6 +75,12 @@ if it is prime:
 check if it is n is divisible by it:
 if so:
 divide it by P, set the maxPrime and repeat
+=== more cases:
+n = 25
+H => copy => paste (HH) until 5
+copy x1 + paste x4 = 5
+copy => paste x4
+10 operations
 """
 from math import sqrt
 
@@ -87,6 +93,10 @@ def is_prime(n: int) -> bool:
 
 
 def get_max_prime_factor(n: int) -> int:
+    if not isinstance(n, int):
+        return 0
+    if n <= 0:
+        return 0
     max_prime_factor = -1
     while not is_prime(n):
         if n % 2 == 0:
