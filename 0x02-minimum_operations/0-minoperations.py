@@ -93,8 +93,9 @@ def is_prime(n: int) -> bool:
 
 
 def get_max_prime_factor(n: int) -> int:
-    if not isinstance(n, int):
-        return 0
+    # if not isinstance(n, int):
+    #     return 0
+    n = int(n)
     if n <= 0:
         return 0
     max_prime_factor = -1
