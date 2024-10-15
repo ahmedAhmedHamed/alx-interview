@@ -79,7 +79,7 @@ from math import sqrt
 
 
 def is_prime(n: int) -> bool:
-    for i in range(int(sqrt(n)), 0, -1):
+    for i in range(int(sqrt(n)), 1, -1):
         if n % i == 0:
             return False
     return True
@@ -97,3 +97,5 @@ def minOperations(n: int) -> int:
     return 0
 
 
+print(is_prime(7))
+print(is_prime(10))
