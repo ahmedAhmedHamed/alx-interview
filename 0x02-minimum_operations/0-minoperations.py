@@ -49,6 +49,31 @@ we need to calculate prime numbers P starting from 2
 and if the number is divisible by P we divide it by P
 and continue until the number becomes a prime number.
 
++prime numbers other than 2 are always odd.
+===
+---
+===
+core algo:
+starting number of operations is always 2
+(one for initial copy, second for second copy)
+1. get max prime factor of n named P.
+2. add P - 1 to the amount of operations.
+3. add  (n / P) - 1 to the amount of operations.
+4. return the amount of operations.
++++
+how to get max prime factor of a number n:
+check if n is a prime factor:
+if so return n.
+check if n is divisible by 2:
+if it is: divide it by 2
+and repeat
+otherwise:
+for every odd number starting at 3
+check if the odd number is prime
+if it is prime:
+check if it is n is divisible by it:
+if so:
+divide it by P, set the maxPrime and repeat
 """
 
 
