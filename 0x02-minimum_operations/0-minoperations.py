@@ -97,7 +97,7 @@ def get_max_prime_factor(n: int) -> int:
                     if is_prime(i):
                         n /= i
                         max_prime_factor = max(max_prime_factor, i)
-    return max_prime_factor
+    return max(max_prime_factor, n)
 
 
 def minOperations(n: int) -> int:
