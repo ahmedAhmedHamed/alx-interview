@@ -75,8 +75,25 @@ check if it is n is divisible by it:
 if so:
 divide it by P, set the maxPrime and repeat
 """
+from math import sqrt
 
 
+def is_prime(n: int) -> bool:
+    for i in range(int(sqrt(n)), 0, -1):
+        if n % i == 0:
+            return False
+    return True
 
+
+def minOperations(n: int) -> int:
+    """
+    In a text file, there is a single character H.
+     Your text editor can execute only two operations in this file:
+      Copy All and Paste. Given a number n, write a method that calculates
+       the fewest number of operations
+        needed to result in exactly n H characters in the file.
+
+    """
+    return 0
 
 
