@@ -86,7 +86,18 @@ def is_prime(n: int) -> bool:
 
 
 def get_max_prime_factor(n: int) -> int:
-    pass
+    max_prime_factor = -1
+    while not is_prime(n):
+        if n % 2 == 0:
+            n /= 2
+            max_prime_factor = max(max_prime_factor, 2)
+        else:
+            for i in range(3, int(sqrt(n)) + 1, 2):
+                if n % i == 0:
+                    if is_prime(i):
+                        n /= i
+                        max_prime_factor = max(max_prime_factor, i)
+    return max_prime_factor
 
 
 def minOperations(n: int) -> int:
