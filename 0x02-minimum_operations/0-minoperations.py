@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """
 n = 12
 H => copy => paste (HH) => cope => paste(HHHH) => copy
