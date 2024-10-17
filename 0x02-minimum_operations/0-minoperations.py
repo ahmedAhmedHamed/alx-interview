@@ -104,7 +104,10 @@ def get_sum_prime_factors(n: int) -> int:
                     if is_prime(i):
                         n /= i
                         ret += i
-    return ret + n
+    if n != 1:
+        ret += n
+
+    return int(ret)
 
 
 def minOperations(n: int) -> int:
@@ -120,4 +123,4 @@ def minOperations(n: int) -> int:
         return 0
     if is_prime(n):
         return n
-    return get_sum_prime_factors(n)
+    return int(get_sum_prime_factors(n))
