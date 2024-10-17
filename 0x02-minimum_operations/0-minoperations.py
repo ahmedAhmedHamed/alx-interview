@@ -116,15 +116,7 @@ def minOperations(n: int) -> int:
         needed to result in exactly n H characters in the file.
 
     """
-    try:
-        n = int(n)
-    except Exception as e:
-        pass
-    if not isinstance(n, int):
-        return 0
-    if n <= 0:
-        return 0
-    if n == 1:
+    if n < 2:
         return 0
     if is_prime(n):
         return n
