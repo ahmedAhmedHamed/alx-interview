@@ -80,6 +80,7 @@ def print_items():
         if value > 0:
             print(f'{key}: {value}')
 
+
 if __name__ == '__main__':
     signal.signal(signal.SIGINT, signal_handler)
     while True:
