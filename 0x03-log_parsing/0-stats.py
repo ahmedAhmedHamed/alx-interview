@@ -20,6 +20,7 @@ status code: 200 | 301 | 400 | 401 | 403 | 404 | 405 | 500
 filesize: [0-9] * 6
 """
 import re
+import signal
 
 start = "(^"
 ip_regex = (
@@ -65,6 +66,11 @@ status_code_counts = {
 counter = 0
 
 
+def signal_handler(sig, frame):
+    """ handles signal """
+    print_items()
+
+
 def print_items():
     """ prints items """
     global file_size
@@ -74,19 +80,20 @@ def print_items():
         if value > 0:
             print(f'{key}: {value}')
 
-
-while True:
-    line = input()
-    x = re.match(complete, line)
-    start = x.start()
-    end = x.end()
-    counter += 1
-    if start != 0 or end != len(line):
-        continue
-    capture_groups = x.groups()
-    code = int(capture_groups[12])
-    file_size = capture_groups[13]
-    status_code_counts[code] += 1
-    total_size += int(file_size)
-    if counter % 10 == 0:
-        print_items()
+if __name__ == '__main__':
+    signal.signal(signal.SIGINT, signal_handler)
+    while True:
+        line = input()
+        x = re.match(complete, line)
+        start = x.start()
+        end = x.end()
+        counter += 1
+        if start != 0 or end != len(line):
+            continue
+        capture_groups = x.groups()
+        code = int(capture_groups[12])
+        file_size = capture_groups[13]
+        status_code_counts[code] += 1
+        total_size += int(file_size)
+        if counter % 10 == 0:
+            print_items()
