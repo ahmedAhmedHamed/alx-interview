@@ -20,6 +20,7 @@ filesize: [0-9] * 6
 """
 # <IP Address> - [<date>] "GET /projects/260 HTTP/1.1" <status code> <file size>
 import re
+import signal
 
 test = r'238.31.240.119 - [2024-10-23 14:17:46.877469] "GET /projects/260 HTTP/1.1" 404 183'
 
@@ -45,17 +46,53 @@ after_status = after_request
 file_size_regex = '(([1-9][0-9]*)'
 end = '$)'
 complete = (start + ip_regex + middle + year_regex + month_regex
-            + day_regex + hour_regex + minute_regex + after_minute + second_regex + after_second + before_millisecond + millisecond_regex
-            + after_millisecond + request_regex + after_request + status_codes_regex + after_status
+            + day_regex + hour_regex + minute_regex + after_minute
+            + second_regex
+            + after_second + before_millisecond + millisecond_regex
+            + after_millisecond + request_regex
+            + after_request + status_codes_regex + after_status
             + file_size_regex + end)
+total_size = 0
+status_code_counts = {
+    200: 0,
+    301: 0,
+    400: 0,
+    401: 0,
+    403: 0,
+    404: 0,
+    405: 0,
+    500: 0
+}
 counter = 0
+
+
+def signal_handler(sig, frame):
+    print_items()
+
+
+def print_items():
+    global file_size
+    global status_code_counts
+    print(f'File size: {file_size}')
+    for key, value in status_code_counts.items():
+        if value > 0:
+            print(f'{key}: {value}')
+
+
+signal.signal(signal.SIGINT, signal_handler)
 while True:
+
     line = input()
-    x = re.match(complete, test)
+    x = re.match(complete, line)
     start = x.start()
     end = x.end()
     counter += 1
     if start != 0 or end != len(line):
-        print(line)
-        print(counter)
-        print()
+        continue
+    capture_groups = x.groups()
+    code = int(capture_groups[12])
+    file_size = capture_groups[13]
+    status_code_counts[code] += 1
+    total_size += int(file_size)
+    if counter % 10 == 0:
+        print_items()
