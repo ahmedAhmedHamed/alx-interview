@@ -1,9 +1,10 @@
 #!/usr/bin/python3
-
-# <IP Address> - [<date>] "GET /projects/260 HTTP/1.1" <status code> <file size>
 """
 REGEX
-IP: ([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])\.([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])\.([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])\.([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])
+IP: ([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5]).
+([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5]).
+([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5]).
+([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])
  - : -
 Date:
 year: [1-9][1-9][1-9][1-9]
@@ -18,15 +19,14 @@ millisecond: [0-9] 6 times
 status code: 200 | 301 | 400 | 401 | 403 | 404 | 405 | 500
 filesize: [0-9] * 6
 """
-# <IP Address> - [<date>] "GET /projects/260 HTTP/1.1" <status code> <file size>
 import re
 import signal
 
-test = r'238.31.240.119 - [2024-10-23 14:17:46.877469] "GET /projects/260 HTTP/1.1" 404 183'
-
 start = "(^"
-ip_regex = (r'([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])\.([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])\.([01]?[0-9][0-9]?|2['
-            r'0-4][0-9]|25[0-5])\.([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5]))')
+ip_regex = (
+    r'([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])'
+    r'\.([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])\.([01]?[0-9][0-9]?|2['
+    r'0-4][0-9]|25[0-5])\.([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5]))')
 middle = r' - '
 year_regex = r'\[([0-9][0-9][0-9][0-9])-'
 month_regex = '(1[0-2]|[0-9])-'
@@ -67,10 +67,12 @@ counter = 0
 
 
 def signal_handler(sig, frame):
+    """ handles signal """
     print_items()
 
 
 def print_items():
+    """ prints items """
     global file_size
     global status_code_counts
     print(f'File size: {file_size}')
@@ -81,7 +83,6 @@ def print_items():
 
 signal.signal(signal.SIGINT, signal_handler)
 while True:
-
     line = input()
     x = re.match(complete, line)
     start = x.start()
