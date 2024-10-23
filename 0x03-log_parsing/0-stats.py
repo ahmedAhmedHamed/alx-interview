@@ -20,7 +20,6 @@ status code: 200 | 301 | 400 | 401 | 403 | 404 | 405 | 500
 filesize: [0-9] * 6
 """
 import re
-import signal
 
 start = "(^"
 ip_regex = (
@@ -66,11 +65,6 @@ status_code_counts = {
 counter = 0
 
 
-def signal_handler(sig, frame):
-    """ handles signal """
-    print_items()
-
-
 def print_items():
     """ prints items """
     global file_size
@@ -81,7 +75,6 @@ def print_items():
             print(f'{key}: {value}')
 
 
-signal.signal(signal.SIGINT, signal_handler)
 while True:
     line = input()
     x = re.match(complete, line)
