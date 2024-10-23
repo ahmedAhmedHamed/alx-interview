@@ -21,18 +21,19 @@ filesize: [0-9] * 6
 """
 import re
 import signal
+import sys
 
 start = "(^"
 ip_regex = (
     r'([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])'
     r'\.([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])\.([01]?[0-9][0-9]?|2['
-    r'0-4][0-9]|25[0-5])\.([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5]))')
+    r'0-4][0-9]|25[0-5])\.([01]?[0-9][0-9]?|2[0-4][0-9]|25[0-5])')
 middle = r' - '
 year_regex = r'\[([0-9][0-9][0-9][0-9])-'
-month_regex = '(1[0-2]|[0-9])-'
-day_regex = '(2[0-3]|[0-1]?[0-9]) '
+month_regex = r'(1[0-2]|[0-9])-'
+day_regex = r'(2[0-3]|[0-1]?[0-9]) '
 hour_regex = r'(2[0-3]|[0-1]?[0-9]):'
-minute_regex = '([0-5]?[0-9])'
+minute_regex = r'([0-5]?[0-9])'
 after_minute = r':'
 second_regex = minute_regex
 after_second = r'\.'
@@ -52,16 +53,23 @@ complete = (start + ip_regex + middle + year_regex + month_regex
             + after_millisecond + request_regex
             + after_request + status_codes_regex + after_status
             + file_size_regex + end)
+
+date_check_re = (year_regex + month_regex
+                + day_regex + hour_regex + minute_regex + after_minute
+                + second_regex
+                + after_second + before_millisecond + millisecond_regex
+                + after_millisecond)
+
 total_size = 0
 status_code_counts = {
-    200: 0,
-    301: 0,
-    400: 0,
-    401: 0,
-    403: 0,
-    404: 0,
-    405: 0,
-    500: 0
+    '200': 0,
+    '301': 0,
+    '400': 0,
+    '401': 0,
+    '403': 0,
+    '404': 0,
+    '405': 0,
+    '500': 0
 }
 counter = 0
 
@@ -81,20 +89,49 @@ def print_items():
             print(f'{key}: {value}')
 
 
+def is_full_match(rematch, length):
+    if not rematch:
+        return False
+    return rematch.start() == 0 and rematch.end() == length
+
+
 if __name__ == '__main__':
-    signal.signal(signal.SIGINT, signal_handler)
-    while True:
-        line = input()
-        x = re.match(complete, line)
-        start = x.start()
-        end = x.end()
-        counter += 1
-        if start != 0 or end != len(line):
-            continue
-        capture_groups = x.groups()
-        code = int(capture_groups[12])
-        file_size = capture_groups[13]
-        status_code_counts[code] += 1
-        total_size += int(file_size)
-        if counter % 10 == 0:
-            print_items()
+    try:
+        for line in sys.stdin:
+            line_sections = line.split()
+            counter += 1
+            if counter == 10:
+                counter = 0
+                print_items()
+
+            if len(line_sections) != 9:
+                continue
+
+            ip_check = re.match(ip_regex, line_sections[0])
+            if not is_full_match(ip_check, len(line_sections[0])) :
+                continue
+            if line_sections[1] != '-':
+                continue
+            full_date = line_sections[2] + line_sections[3]
+            date_check = re.match(date_check_re, full_date)
+            if not is_full_match(date_check, len(full_date)):
+                continue
+            if line_sections[4] != '"GET':
+                continue
+            if line_sections[5] != '/projects/260':
+                continue
+            if line_sections[6] != 'HTTP/1.1"':
+                continue
+            status_code = line_sections[7]
+            if not status_code.isdigit():
+                continue
+            file_size = line_sections[8]
+            if not file_size.isdigit():
+                continue
+            total_size += int(file_size)
+            if status_code not in status_code_counts:
+                continue
+            status_code_counts[status_code] += 1
+
+    finally:
+        print_items()
