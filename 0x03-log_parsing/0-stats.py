@@ -96,8 +96,5 @@ if __name__ == '__main__':
         file_size = capture_groups[13]
         status_code_counts[code] += 1
         total_size += int(file_size)
-        print(int(file_size))
-        print(total_size)
-        print("_-_")
         if counter % 10 == 0:
             print_items()
