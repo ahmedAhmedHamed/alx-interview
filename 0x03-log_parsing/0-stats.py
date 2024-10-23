@@ -73,9 +73,9 @@ def signal_handler(sig, frame):
 
 def print_items():
     """ prints items """
-    global file_size
+    global total_size
     global status_code_counts
-    print(f'File size: {file_size}')
+    print(f'File size: {total_size}')
     for key, value in status_code_counts.items():
         if value > 0:
             print(f'{key}: {value}')
@@ -96,5 +96,8 @@ if __name__ == '__main__':
         file_size = capture_groups[13]
         status_code_counts[code] += 1
         total_size += int(file_size)
+        print(int(file_size))
+        print(total_size)
+        print("_-_")
         if counter % 10 == 0:
             print_items()
