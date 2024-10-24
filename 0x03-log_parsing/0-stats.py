@@ -24,7 +24,7 @@ def print_items():
     global status_code_counts
     print(f'File size: {total_size}')
     for key, value in status_code_counts.items():
-        if value > 0:
+        if value != 0:
             print(f'{key}: {value}')
 
 
@@ -40,9 +40,9 @@ if __name__ == '__main__':
                 continue
             counter += 1
 
-            status_code = line_sections[7]
+            status_code = line_sections[-2]
 
-            file_size = line_sections[8]
+            file_size = line_sections[-1]
             total_size += int(file_size)
             if status_code.isdigit():
                 if status_code in status_code_counts:
