@@ -114,14 +114,14 @@ if __name__ == '__main__':
                 continue
             full_date = line_sections[2] + line_sections[3]
             date_check = re.match(date_check_re, full_date)
-            if not is_full_match(date_check, len(full_date)):
-                continue
-            if line_sections[4] != '"GET':
-                continue
-            if line_sections[5] != '/projects/260':
-                continue
-            if line_sections[6] != 'HTTP/1.1"':
-                continue
+            # if not is_full_match(date_check, len(full_date)):
+            #     continue
+            # if line_sections[4] != '"GET':
+            #     continue
+            # if line_sections[5] != '/projects/260':
+            #     continue
+            # if line_sections[6] != 'HTTP/1.1"':
+            #     continue
             status_code = line_sections[7]
             if not status_code.isdigit():
                 continue
