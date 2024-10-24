@@ -123,15 +123,14 @@ if __name__ == '__main__':
             # if line_sections[6] != 'HTTP/1.1"':
             #     continue
             status_code = line_sections[7]
-            if not status_code.isdigit():
-                continue
+
             file_size = line_sections[8]
-            if not file_size.isdigit():
-                continue
-            total_size += int(file_size)
-            if status_code not in status_code_counts:
-                continue
-            status_code_counts[status_code] += 1
+            if file_size.isdigit():
+                total_size += int(file_size)
+            if status_code.isdigit():
+                if status_code not in status_code_counts:
+                    continue
+                status_code_counts[status_code] += 1
 
     finally:
         print_items()
