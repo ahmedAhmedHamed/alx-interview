@@ -19,8 +19,6 @@ millisecond: [0-9] 6 times
 status code: 200 | 301 | 400 | 401 | 403 | 404 | 405 | 500
 filesize: [0-9] * 6
 """
-import re
-import signal
 import sys
 
 start = "(^"
@@ -74,11 +72,6 @@ status_code_counts = {
 counter = 0
 
 
-def signal_handler(sig, frame):
-    """ handles signal """
-    print_items()
-
-
 def print_items():
     """ prints items """
     global total_size
@@ -89,48 +82,25 @@ def print_items():
             print(f'{key}: {value}')
 
 
-def is_full_match(rematch, length):
-    if not rematch:
-        return False
-    return rematch.start() == 0 and rematch.end() == length
-
-
 if __name__ == '__main__':
     try:
         for line in sys.stdin:
             line_sections = line.split()
-            if counter == 10:
-                counter = 0
-                print_items()
 
-            if len(line_sections) != 9:
+            if len(line_sections) < 2:
                 continue
             counter += 1
 
-            ip_check = re.match(ip_regex, line_sections[0])
-            if not is_full_match(ip_check, len(line_sections[0])):
-                continue
-            if line_sections[1] != '-':
-                continue
-            full_date = line_sections[2] + line_sections[3]
-            date_check = re.match(date_check_re, full_date)
-            # if not is_full_match(date_check, len(full_date)):
-            #     continue
-            # if line_sections[4] != '"GET':
-            #     continue
-            # if line_sections[5] != '/projects/260':
-            #     continue
-            # if line_sections[6] != 'HTTP/1.1"':
-            #     continue
             status_code = line_sections[7]
 
             file_size = line_sections[8]
-            if file_size.isdigit():
-                total_size += int(file_size)
+            total_size += int(file_size)
             if status_code.isdigit():
-                if status_code not in status_code_counts:
-                    continue
-                status_code_counts[status_code] += 1
+                if status_code in status_code_counts:
+                    status_code_counts[status_code] += 1
+            if counter == 10:
+                counter = 0
+                print_items()
 
     finally:
         print_items()
