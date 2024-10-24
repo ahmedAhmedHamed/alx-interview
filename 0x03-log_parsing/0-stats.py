@@ -83,6 +83,9 @@ def print_items():
 
 
 if __name__ == '__main__':
+    """
+    entrypoint of program
+    """
     try:
         for line in sys.stdin:
             line_sections = line.split()
