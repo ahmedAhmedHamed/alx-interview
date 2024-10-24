@@ -55,10 +55,10 @@ complete = (start + ip_regex + middle + year_regex + month_regex
             + file_size_regex + end)
 
 date_check_re = (year_regex + month_regex
-                + day_regex + hour_regex + minute_regex + after_minute
-                + second_regex
-                + after_second + before_millisecond + millisecond_regex
-                + after_millisecond)
+                 + day_regex + hour_regex + minute_regex + after_minute
+                 + second_regex
+                 + after_second + before_millisecond + millisecond_regex
+                 + after_millisecond)
 
 total_size = 0
 status_code_counts = {
@@ -99,16 +99,16 @@ if __name__ == '__main__':
     try:
         for line in sys.stdin:
             line_sections = line.split()
-            counter += 1
             if counter == 10:
                 counter = 0
                 print_items()
+            counter += 1
 
             if len(line_sections) != 9:
                 continue
 
             ip_check = re.match(ip_regex, line_sections[0])
-            if not is_full_match(ip_check, len(line_sections[0])) :
+            if not is_full_match(ip_check, len(line_sections[0])):
                 continue
             if line_sections[1] != '-':
                 continue
