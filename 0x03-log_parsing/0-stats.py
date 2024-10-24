@@ -102,10 +102,10 @@ if __name__ == '__main__':
             if counter == 10:
                 counter = 0
                 print_items()
-            counter += 1
 
             if len(line_sections) != 9:
                 continue
+            counter += 1
 
             ip_check = re.match(ip_regex, line_sections[0])
             if not is_full_match(ip_check, len(line_sections[0])):
