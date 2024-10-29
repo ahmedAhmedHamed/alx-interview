@@ -23,7 +23,9 @@ def how_big_header(byte_string):
             break
         if counter > 4:
             return -1
-    return counter
+    if counter == 0:
+        return counter
+    return counter - 1
 
 
 def validUTF8(data):
