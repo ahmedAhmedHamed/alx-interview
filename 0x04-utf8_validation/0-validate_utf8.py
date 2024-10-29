@@ -8,13 +8,22 @@ def is_continuation(byte_string):
     """
     checks byte_string if it has a continuation header
     """
-    return False
+    return byte_string[0] == '1' and byte_string[1] == '1'
+
 
 def how_big_header(byte_string):
     """
     checks how big the utf 8 character is
     """
-    return False
+    counter = 0
+    for byte in byte_string:
+        if byte != '0':
+            counter += 1
+        else:
+            break
+        if counter > 4:
+            return -1
+    return counter
 
 
 def validUTF8(data):
