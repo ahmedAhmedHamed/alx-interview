@@ -66,4 +66,4 @@ def validUTF8(data):
             header_count = current_header_size
         if byte_string[0] == '0' and header_count != 0:
             return False
-    return True
+    return header_count == 0
