@@ -8,7 +8,7 @@ def is_continuation(byte_string):
     """
     checks byte_string if it has a continuation header
     """
-    return byte_string[0] == '1' and byte_string[1] == '1'
+    return byte_string[0] == '1' and byte_string[1] == '0'
 
 
 def how_big_header(byte_string):
