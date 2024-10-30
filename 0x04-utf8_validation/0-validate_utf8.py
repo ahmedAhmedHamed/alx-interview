@@ -52,7 +52,7 @@ def validUTF8(data):
     for num in data:
         if num > 247:
             return False
-        if num < 0:
+        if num <= 0:
             return False
         byte_string = '{0:08b}'.format(num)
         current_header_size = how_big_header(byte_string)
