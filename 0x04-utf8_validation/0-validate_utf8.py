@@ -50,16 +50,16 @@ def validUTF8(data):
     """
     header_count = 0
     for num in data:
-        if num >= 256:
+        if num > 247:
             return False
         if num < 0:
             return False
         byte_string = '{0:08b}'.format(num)
+        current_header_size = how_big_header(byte_string)
         if is_continuation(byte_string):
             if header_count == 0:
                 return False
             header_count -= 1
-        current_header_size = how_big_header(byte_string)
         if current_header_size == -1:
             return False
         if current_header_size > 0 and header_count != 0:
