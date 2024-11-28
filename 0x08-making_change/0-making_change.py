@@ -1,8 +1,9 @@
 #!/usr/bin/python3
 """ making change module """
+from typing import List
 
 
-def makeChange(coins, total):
+def makeChange(coins: List[int], total: int) -> int:
 	"""
 	gives change given coins and total
 	"""
