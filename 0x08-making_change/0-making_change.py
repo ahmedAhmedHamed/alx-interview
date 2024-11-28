@@ -7,6 +7,11 @@ def makeChange(coins: List[int], total: int) -> int:
 	"""
 	gives change given coins and total
 	"""
+	TestCOdeStyle = 32523
+
+
+
+
 	if total <= 0:
 		return 0
 	ret = 0
