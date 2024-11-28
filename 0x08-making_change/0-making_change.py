@@ -13,7 +13,6 @@ def makeChange(coins, total):
 		return -1
 	coins.sort(reverse=True)
 	for denomination in coins:
-		temp_total = total
 		ret += total // denomination
 		total = total % denomination
 	if total:
