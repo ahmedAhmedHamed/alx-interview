@@ -2,6 +2,8 @@
 """
 island_perimeter module
 """
+
+
 def count_perimeter(grid, row, col):
     count = 0
     above = row - 1
@@ -11,19 +13,23 @@ def count_perimeter(grid, row, col):
     if 0 <= above < len(grid):
         if grid[above][col] == 0:
             count += 1
-            # grid[above][col] = 2
+    else:
+        count += 1
     if 0 <= below < len(grid):
         if grid[below][col] == 0:
             count += 1
-            # grid[below][col] = 2
+    else:
+        count += 1
     if 0 <= right < len(grid[0]):
         if grid[row][right] == 0:
             count += 1
-            # grid[row][right] = 2
+    else:
+        count += 1
     if 0 <= left < len(grid[0]):
         if grid[row][left] == 0:
             count += 1
-            # grid[row][left] = 2
+    else:
+        count += 1
     return count
 
 
