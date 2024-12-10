@@ -1,4 +1,9 @@
 #!/usr/bin/python3
+"""
+prime game module
+"""
+
+
 def get_count_primes(n: int) -> int:
     """calculates number of primes using sieve."""
     nums = [i for i in range(2, n + 1)]
