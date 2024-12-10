@@ -5,7 +5,7 @@ prime game module
 
 
 def get_prime_count_array(n: int) -> list[int]:
-    """calculates number of primes using sieve."""
+    """get_prime_count_array using sieve of Eratosthenes."""
     nums = [i for i in range(2, n + 1)]
     for i in range(len(nums)):
         num = nums[i]
