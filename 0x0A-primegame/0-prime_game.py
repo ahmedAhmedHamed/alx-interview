@@ -2,23 +2,22 @@
 """
 prime game module
 """
-from typing import List
 
 
-def get_prime_count_array(n: int) -> List[int]:
-    """get_prime_count_array using sieve of Eratosthenes."""
+def get_count_primes(n: int) -> int:
+    """calculates number of primes using sieve."""
     nums = [i for i in range(2, n + 1)]
-    for i in range(len(nums)):
-        num = nums[i]
+    count_primes = len(nums)
+    for num in nums:
         if num == -1:
             continue
         mul = num
         while num * mul <= n:
-            if nums[(num * mul) - 2] != 0:
-                nums[(num * mul) - 2] = 0
+            if nums[(num * mul) - 2] != -1:
+                count_primes -= 1
+                nums[(num * mul) - 2] = -1
             mul += 1
-        nums[i] = 1
-    return nums
+    return count_primes
 
 
 def isWinner(x, nums):
@@ -35,14 +34,10 @@ def isWinner(x, nums):
         return None
     if x != len(nums):
         return None
-    nums_sorted = sorted(nums)
-    prime_count_array = get_prime_count_array(nums[-1])
-    for num in nums_sorted:
+    for num in nums:
         if not isinstance(num, int):
             return None
-        num_primes = 0
-        for i in prime_count_array:
-            num_primes += i
+        num_primes = get_count_primes(num)
         if num_primes % 2:
             odd_wins += 1
         else:
