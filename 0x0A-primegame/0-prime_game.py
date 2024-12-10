@@ -36,4 +36,6 @@ def isWinner(x, nums):
             odd_wins += 1
         else:
             even_wins += 1
+    if odd_wins == even_wins:
+        return None
     return 'Maria' if odd_wins > even_wins else 'Ben'
