@@ -2,9 +2,10 @@
 """
 prime game module
 """
+from typing import List
 
 
-def get_prime_count_array(n: int) -> list[int]:
+def get_prime_count_array(n: int) -> List[int]:
     """get_prime_count_array using sieve of Eratosthenes."""
     nums = [i for i in range(2, n + 1)]
     for i in range(len(nums)):
