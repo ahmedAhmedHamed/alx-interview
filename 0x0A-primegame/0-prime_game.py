@@ -32,7 +32,7 @@ def isWinner(x, nums):
     even_wins = 0
     if x <= 0 or nums is None:
         return None
-    if x > len(nums):
+    if x != len(nums):
         return None
     for i in range(x):
         if not isinstance(nums[i], int):
