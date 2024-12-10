@@ -2,7 +2,6 @@
 """
 prime game module
 """
-from typing import List
 
 
 def get_prime_count_array(n: int) -> list[int]:
