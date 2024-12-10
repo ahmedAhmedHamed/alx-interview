@@ -37,8 +37,6 @@ def isWinner(x, nums):
     for i in range(x):
         if not isinstance(nums[i], int):
             return None
-        if nums[i] <= 0:
-            return None
         num_primes = get_count_primes(nums[i])
         if num_primes % 2:
             odd_wins += 1
