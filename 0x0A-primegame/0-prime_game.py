@@ -30,8 +30,8 @@ def isWinner(x, nums):
     """
     odd_wins = 0
     even_wins = 0
-    for num in nums:
-        num_primes = get_count_primes(num)
+    for i in range(x):
+        num_primes = get_count_primes(nums[i])
         if num_primes % 2:
             odd_wins += 1
         else:
